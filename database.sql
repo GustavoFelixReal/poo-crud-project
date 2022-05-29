@@ -4,7 +4,7 @@ CREATE DATABASE ecomm_katchau;
 USE ecomm_katchau;
 
 CREATE TABLE products (
-	product_id BIGINT PRIMARY KEY,
+	product_id BIGINT AUTO_INCREMENT PRIMARY KEY,
 	product_name VARCHAR(100) NOT NULL,
 	product_price DECIMAL(10,2) NOT NULL,
 	product_manufacturer VARCHAR(50) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE products (
 );
 
 CREATE TABLE customers (
-	customer_id BIGINT PRIMARY KEY,
+	customer_id BIGINT AUTO_INCREMENT PRIMARY KEY,
 	customer_full_name VARCHAR(100) NOT NULL,
 	customer_email VARCHAR(100) NOT NULL,
 	customer_cpf CHAR(15) UNIQUE NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE customers (
 );
 
 CREATE TABLE credit_cards (
-	card_id BIGINT PRIMARY KEY,
+	card_id BIGINT AUTO_INCREMENT PRIMARY KEY,
 	card_owner BIGINT NOT NULL,
 	card_owner_name VARCHAR(100) NOT NULL,
 	card_number CHAR(16) NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE credit_cards (
 );
 
 CREATE TABLE addresses (
-	address_id BIGINT PRIMARY KEY,
+	address_id BIGINT AUTO_INCREMENT PRIMARY KEY,
 	address_owner BIGINT NOT NULL,
 	address_street VARCHAR(50) NOT NULL,
 	address_number INT,

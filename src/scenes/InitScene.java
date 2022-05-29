@@ -6,7 +6,7 @@ import javafx.scene.layout.GridPane;
 
 public class InitScene implements Boundary {
   @Override
-  public Scene getScene() {
+  public Scene get() {
     GridPane pane = new GridPane();
     Scene scene = new Scene(pane, 500, 500);
 
