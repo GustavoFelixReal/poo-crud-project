@@ -3,15 +3,20 @@ package model;
 import java.util.Objects;
 
 public class Product {
+  private int id;
   private String name;
   private double price;
-  private Category category;
-  private String description;
   private String manufacturer;
-  private double weight;
-  private double height;
-  private double width;
-  private double length;
+  private String description;
+  private String keyFeatures;
+
+  public int getId() {
+    return this.id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
 
   public String getName() {
     return this.name;
@@ -29,12 +34,12 @@ public class Product {
     this.price = price;
   }
 
-  public Category getCategory() {
-    return this.category;
+  public String getManufacturer() {
+    return this.manufacturer;
   }
 
-  public void setCategory(Category category) {
-    this.category = category;
+  public void setManufacturer(String manufacturer) {
+    this.manufacturer = manufacturer;
   }
 
   public String getDescription() {
@@ -45,59 +50,12 @@ public class Product {
     this.description = description;
   }
 
-  public String getManufacturer() {
-    return this.manufacturer;
+  public String getKeyFeatures() {
+    return this.keyFeatures;
   }
 
-  public void setManufacturer(String manufacturer) {
-    this.manufacturer = manufacturer;
-  }
-
-  public double getWeight() {
-    return this.weight;
-  }
-
-  public void setWeight(double weight) {
-    this.weight = weight;
-  }
-
-  public double getHeight() {
-    return this.height;
-  }
-
-  public void setHeight(double height) {
-    this.height = height;
-  }
-
-  public double getWidth() {
-    return this.width;
-  }
-
-  public void setWidth(double width) {
-    this.width = width;
-  }
-
-  public double getLength() {
-    return this.length;
-  }
-
-  public void setLength(double length) {
-    this.length = length;
-  }
-
-  @Override
-  public String toString() {
-    return "{" +
-        " name='" + getName() + "'" +
-        ", price='" + getPrice() + "'" +
-        ", category='" + getCategory() + "'" +
-        ", description='" + getDescription() + "'" +
-        ", manufacturer='" + getManufacturer() + "'" +
-        ", weight='" + getWeight() + "'" +
-        ", height='" + getHeight() + "'" +
-        ", width='" + getWidth() + "'" +
-        ", length='" + getLength() + "'" +
-        "}";
+  public void setKeyFeatures(String keyFeatures) {
+    this.keyFeatures = keyFeatures;
   }
 
   @Override
@@ -108,14 +66,26 @@ public class Product {
       return false;
     }
     Product product = (Product) o;
-    return Objects.equals(name, product.name) && price == product.price && Objects.equals(category, product.category)
-        && Objects.equals(description, product.description) && Objects.equals(manufacturer, product.manufacturer)
-        && weight == product.weight && height == product.height && width == product.width && length == product.length;
+    return id == product.id && Objects.equals(name, product.name) && price == product.price
+        && Objects.equals(manufacturer, product.manufacturer) && Objects.equals(description, product.description)
+        && Objects.equals(keyFeatures, product.keyFeatures);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, price, category, description, manufacturer, weight, height, width, length);
+    return Objects.hash(id, name, price, manufacturer, description, keyFeatures);
+  }
+
+  @Override
+  public String toString() {
+    return "{" +
+        " id='" + getId() + "'" +
+        ", name='" + getName() + "'" +
+        ", price='" + getPrice() + "'" +
+        ", manufacturer='" + getManufacturer() + "'" +
+        ", description='" + getDescription() + "'" +
+        ", keyFeatures='" + getKeyFeatures() + "'" +
+        "}";
   }
 
 }
