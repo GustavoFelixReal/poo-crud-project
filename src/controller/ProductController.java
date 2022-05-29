@@ -1,6 +1,5 @@
 package controller;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,16 +8,14 @@ import java.util.List;
 
 import model.Product;
 import model.ProductBuilder;
-import util.ConnectionFactory;
 
 public class ProductController implements IController<Product> {
-  private Connection con = new ConnectionFactory().get();
 
   @Override
   public List<Product> all() {
     List<Product> products = new ArrayList<>();
 
-    String query = "SELECT * FROM product";
+    String query = "SELECT * FROM products";
 
     try {
       PreparedStatement stmt = con.prepareStatement(query);
