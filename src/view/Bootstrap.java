@@ -1,5 +1,6 @@
 package view;
 
+import controller.ProductController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import scenes.InitScene;
@@ -7,6 +8,7 @@ import scenes.InitScene;
 public class Bootstrap extends Application {
   @Override
   public void start(Stage stage) throws Exception {
+    System.out.println(new ProductController().all().toString());
     stage.setScene(new InitScene().getScene());
     stage.show();
   }
