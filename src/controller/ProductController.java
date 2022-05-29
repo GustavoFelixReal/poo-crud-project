@@ -18,7 +18,7 @@ public class ProductController implements IController<Product> {
   public List<Product> all() {
     List<Product> products = new ArrayList<>();
 
-    String query = "SELECT * FROM products";
+    String query = "SELECT * FROM product";
 
     try {
       PreparedStatement stmt = con.prepareStatement(query);
