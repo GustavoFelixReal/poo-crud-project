@@ -15,7 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.util.converter.LocalDateStringConverter;
 
-public class CustomerScene implements Boundary {
+public class CustomerScene implements IBoundary {
   private Insets layoutSpacing = new Insets(10, 20, 10, 20);
   private Insets buttonGroupSpacing = new Insets(10, 0, 10, 0);
   private Insets tableBoxSpacing = new Insets(0, 10, 0, 10);
