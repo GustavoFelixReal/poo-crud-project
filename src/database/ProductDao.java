@@ -1,5 +1,6 @@
 package database;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,6 +11,12 @@ import model.Product;
 import model.ProductBuilder;
 
 public class ProductDao implements Idao<Product> {
+  private Connection con;
+
+  public ProductDao(Connection con) {
+    this.con = con;
+  }
+
   @Override
   public List<Product> all() {
     List<Product> products = new ArrayList<>();

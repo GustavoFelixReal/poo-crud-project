@@ -14,7 +14,7 @@ import model.Address;
 import model.AddressBuilder;
 
 public class AddressController implements IController<Address> {
-  private AddressDao dao = new AddressDao();
+  private AddressDao dao = new AddressDao(con);
 
   private ObservableList<String> customers = FXCollections.observableArrayList();
 
@@ -68,6 +68,7 @@ public class AddressController implements IController<Address> {
     return owner;
   }
 
+  @SuppressWarnings("unchecked")
   public AddressController() {
     addresses.addAll(dao.all());
     customers.addAll(dao.allCustomers());

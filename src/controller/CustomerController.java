@@ -19,7 +19,7 @@ import model.Customer;
 import model.CustomerBuilder;
 
 public class CustomerController implements IController<Customer> {
-  private CustomerDao dao = new CustomerDao();
+  private CustomerDao dao = new CustomerDao(con);
 
   private ObservableList<Customer> customers = FXCollections.observableArrayList();
 
@@ -61,6 +61,7 @@ public class CustomerController implements IController<Customer> {
     return cellPhone;
   }
 
+  @SuppressWarnings("unchecked")
   public CustomerController() {
     customers.addAll(dao.all());
 

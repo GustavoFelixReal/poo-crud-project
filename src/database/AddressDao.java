@@ -1,5 +1,6 @@
 package database;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,6 +11,11 @@ import model.Address;
 import model.AddressBuilder;
 
 public class AddressDao implements Idao<Address> {
+  private Connection con;
+
+  public AddressDao(Connection con) {
+    this.con = con;
+  }
 
   @Override
   public List<Address> all() {

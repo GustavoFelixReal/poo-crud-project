@@ -1,12 +1,8 @@
 package database;
 
-import java.sql.Connection;
 import java.util.List;
 
-import util.ConnectionFactory;
-
 public interface Idao<T> {
-  public final Connection con = new ConnectionFactory().get();
 
   public List<T> all();
 
