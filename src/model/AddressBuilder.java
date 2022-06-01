@@ -35,7 +35,6 @@ public class AddressBuilder {
   }
 
   public AddressBuilder addOwner(String owner) {
-    // 1:Gustavo Felix
     this.address.setOwner(owner);
     return this;
   }
