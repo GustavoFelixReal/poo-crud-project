@@ -92,7 +92,6 @@ public class ProductDao implements Idao<Product> {
       stmt.setString(3, product.getManufacturer());
       stmt.setString(4, product.getDescription());
       stmt.setString(5, product.getKeyFeatures());
-
       stmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();

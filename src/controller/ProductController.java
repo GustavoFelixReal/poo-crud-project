@@ -20,7 +20,7 @@ public class ProductController implements IController<Product> {
   private ObservableList<Product> products = FXCollections.observableArrayList();
 
   private StringProperty name = new SimpleStringProperty();
-  private SimpleStringProperty price = new SimpleStringProperty();
+  private StringProperty price = new SimpleStringProperty();
   private StringProperty manufacturer = new SimpleStringProperty();
   private StringProperty description = new SimpleStringProperty();
   private StringProperty keyFeatures = new SimpleStringProperty();
@@ -63,7 +63,7 @@ public class ProductController implements IController<Product> {
     TableColumn<Product, String> columnDescription = new TableColumn<>("Descrição");
     columnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-    TableColumn<Product, String> columnKeyFeatures = new TableColumn<>("Informações");
+    TableColumn<Product, String> columnKeyFeatures = new TableColumn<>("Informações Técnicas");
     columnKeyFeatures.setCellValueFactory(new PropertyValueFactory<>("keyFeatures"));
 
     table.getColumns().addAll(columnName, columnPrice, columnManufacturer, columnDescription, columnKeyFeatures);

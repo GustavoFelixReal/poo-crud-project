@@ -97,7 +97,7 @@ public class ProductScene implements IBoundary {
     Bindings.bindBidirectional(controller.keyFeaturesProperty(), txtKeyFeatures.textProperty());
 
     // Criação da Scene
-    Scene scene = new Scene(main, 700, 400);
+    Scene scene = new Scene(main, 650, 400);
 
     return scene;
   }
