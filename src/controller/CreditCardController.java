@@ -104,6 +104,7 @@ public class CreditCardController implements IController<CreditCard> {
       if (dao.create(creditCard)) {
         creditCards.add(creditCard);
         this.clear();
+        new Alert(Alert.AlertType.INFORMATION, "Cartão de Crédito adicionado com sucesso").show();
       } else {
         new Alert(Alert.AlertType.ERROR, "Erro ao inserir no banco de dados").show();
       }

@@ -121,6 +121,7 @@ public class AddressController implements IController<Address> {
       if (dao.create(address)) {
         addresses.add(address);
         this.clear();
+        new Alert(Alert.AlertType.INFORMATION, "Endereço adicionado com sucesso").show();
       } else {
         new Alert(Alert.AlertType.ERROR, "Erro ao inserir no banco de dados").show();
       }

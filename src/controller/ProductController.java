@@ -86,6 +86,7 @@ public class ProductController implements IController<Product> {
       if (dao.create(product)) {
         products.add(product);
         this.clear();
+        new Alert(Alert.AlertType.INFORMATION, "Produto adicionado com sucesso").show();
       } else {
         new Alert(Alert.AlertType.ERROR, "Erro ao inserir no banco de dados").show();
       }

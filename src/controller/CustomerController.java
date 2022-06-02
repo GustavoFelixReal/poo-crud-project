@@ -114,6 +114,7 @@ public class CustomerController implements IController<Customer> {
       if (dao.create(customer)) {
         customers.add(customer);
         this.clear();
+        new Alert(Alert.AlertType.INFORMATION, "Cliente adicionado com sucesso").show();
       } else {
         new Alert(Alert.AlertType.ERROR, "Erro ao inserir no banco de dados").show();
       }
