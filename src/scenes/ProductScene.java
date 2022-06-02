@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -13,13 +14,13 @@ import javafx.scene.layout.HBox;
 public class ProductScene implements IBoundary {
   private Insets layoutSpacing = new Insets(10, 20, 10, 20);
   private Insets buttonGroupSpacing = new Insets(10, 0, 10, 0);
-  private Insets tableBoxSpacing = new Insets(0, 10, 0, 10);
+  private Insets tableBoxSpacing = new Insets(0, 0, 0, 10);
 
   private TextField txtName = new TextField();
   private TextField txtPrice = new TextField();
   private TextField txtManufacturer = new TextField();
-  private TextField txtDescription = new TextField();
-  private TextField txtKeyFeatures = new TextField();
+  private TextArea txtDescription = new TextArea();
+  private TextArea txtKeyFeatures = new TextArea();
   private String textFieldStyle = "-fx-font: 14 arial;";
 
   private Button btnAdd = new Button("Adicionar");
@@ -46,25 +47,25 @@ public class ProductScene implements IBoundary {
     tableBox.setPadding(tableBoxSpacing);
 
     // Nome
-    grid.add(new Label("Nome"), 0, 0);
+    grid.add(new Label("* Nome"), 0, 0);
     grid.add(txtName, 0, 1);
     txtName.setPrefSize(300, 30);
     txtName.setStyle(textFieldStyle);
 
     // Preço
-    grid.add(new Label("Preço"), 0, 2);
+    grid.add(new Label("* Preço (decimal é .)"), 0, 2);
     grid.add(txtPrice, 0, 3);
     txtPrice.setPrefSize(300, 30);
     txtPrice.setStyle(textFieldStyle);
 
     // Fabricante
-    grid.add(new Label("Fabricante"), 0, 4);
+    grid.add(new Label("* Fabricante"), 0, 4);
     grid.add(txtManufacturer, 0, 5);
     txtManufacturer.setPrefSize(300, 30);
     txtManufacturer.setStyle(textFieldStyle);
 
     // Descrição
-    grid.add(new Label("Descrição"), 0, 6);
+    grid.add(new Label("* Descrição"), 0, 6);
     grid.add(txtDescription, 0, 7);
     txtDescription.setPrefSize(300, 30);
     txtDescription.setStyle(textFieldStyle);

@@ -82,7 +82,7 @@ public class ProductDao implements Idao<Product> {
   }
 
   @Override
-  public void create(Product product) {
+  public boolean create(Product product) {
     String query = "INSERT INTO products VALUES (null, ?, ?, ?, ?, ?)";
 
     try {
@@ -95,8 +95,10 @@ public class ProductDao implements Idao<Product> {
       stmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
+      return false;
     }
 
+    return true;
   }
 
   @Override

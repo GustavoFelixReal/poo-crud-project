@@ -9,6 +9,7 @@ import java.util.List;
 
 import model.Customer;
 import model.CustomerBuilder;
+import util.DateConverter;
 
 public class CustomerDao implements Idao<Customer> {
   private Connection con;
@@ -86,7 +87,7 @@ public class CustomerDao implements Idao<Customer> {
   }
 
   @Override
-  public void create(Customer customer) {
+  public boolean create(Customer customer) {
     String query = "INSERT INTO customers (customer_full_name, customer_email, customer_cpf, customer_rg, customer_gender, customer_birth, customer_cellphone) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     try {
@@ -96,13 +97,16 @@ public class CustomerDao implements Idao<Customer> {
       stmt.setString(3, customer.getCpf());
       stmt.setString(4, customer.getRg());
       stmt.setString(5, customer.getGender());
-      stmt.setDate(6, java.sql.Date.valueOf(customer.getBirth()));
+      stmt.setDate(6, DateConverter.localDateToDate(customer.getBirth()));
       stmt.setString(7, customer.getCellPhone());
 
       stmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
+      return false;
     }
+
+    return true;
   }
 
   @Override

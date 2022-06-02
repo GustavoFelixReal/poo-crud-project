@@ -10,7 +10,7 @@ public interface Idao<T> {
 
   public T get(int id);
 
-  public void create(T t);
+  public boolean create(T t);
 
   public void update(T t);
 

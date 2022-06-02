@@ -10,6 +10,7 @@ public class AddressBootstrap extends Application {
   public void start(Stage stage) throws Exception {
     stage.setScene(new AddressScene().get());
     stage.setTitle("Endereços");
+    stage.setResizable(false);
     stage.show();
   }
 

@@ -8,6 +8,7 @@ public class CustomerBootstrap extends Application {
   @Override
   public void start(Stage stage) throws Exception {
     stage.setScene(new CustomerScene().get());
+    stage.setResizable(false);
     stage.setTitle("Cliente");
     stage.show();
   }

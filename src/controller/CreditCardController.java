@@ -12,11 +12,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.CreditCard;
 import model.CreditCardBuilder;
+import util.DateConverter;
 
 public class CreditCardController implements IController<CreditCard> {
   private CreditCardDao dao = new CreditCardDao(con);
@@ -63,8 +65,11 @@ public class CreditCardController implements IController<CreditCard> {
     creditCards.addAll(dao.all());
     customers.addAll(dao.allCustomers());
 
-    TableColumn<CreditCard, String> columnOwner = new TableColumn<>("Titular");
+    TableColumn<CreditCard, String> columnOwner = new TableColumn<>("Cliente");
     columnOwner.setCellValueFactory(new PropertyValueFactory<>("owner"));
+
+    TableColumn<CreditCard, String> columnName = new TableColumn<>("Titular");
+    columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
     TableColumn<CreditCard, String> columnNumber = new TableColumn<>("Número");
     columnNumber.setCellValueFactory(new PropertyValueFactory<>("number"));
@@ -89,16 +94,19 @@ public class CreditCardController implements IController<CreditCard> {
 
   @Override
   public void add() {
+    if (this.validate()) {
+      CreditCard creditCard = CreditCardBuilder.builder()
+          .addCreditCard(name.get(), number.get(), country.get(),
+              expiry.get(), cvv.get())
+          .addOwner(owner.get())
+          .get();
 
-    CreditCard creditCard = CreditCardBuilder.builder()
-        .addCreditCard(name.get(), number.get(), country.get(),
-            expiry.get(), cvv.get())
-        .addOwner(owner.get())
-        .get();
-
-    creditCards.add(creditCard);
-
-    dao.create(creditCard);
+      if (dao.create(creditCard)) {
+        creditCards.add(creditCard);
+      } else {
+        new Alert(Alert.AlertType.ERROR, "Erro ao inserir no banco de dados").show();
+      }
+    }
   }
 
   @Override
@@ -116,6 +124,48 @@ public class CreditCardController implements IController<CreditCard> {
 
   public ObservableList<String> getCustomersOptions() {
     return customers;
+  }
+
+  @Override
+  public boolean validate() {
+    try {
+      if (owner.get() == null) {
+        new Alert(Alert.AlertType.ERROR, "Cliente é obrigatório").show();
+        return false;
+      }
+
+      if (name.get().equals("") || name.get().equals(null)) {
+        new Alert(Alert.AlertType.ERROR, "Titular é obrigatório").show();
+        return false;
+      }
+
+      if (number.get().equals("") || number.get().equals(null) || Long.parseLong(number.get()) <= 0
+          || number.get().length() > 16 || number.get().length() < 16) {
+        new Alert(Alert.AlertType.ERROR, "Número é inválido").show();
+        return false;
+      }
+
+      if (country.get().equals("") || country.get().equals(null)) {
+        new Alert(Alert.AlertType.ERROR, "País é obrigatório").show();
+        return false;
+      }
+
+      if (DateConverter.isValid(expiry.get().toString()) || expiry.get().equals(null)) {
+        new Alert(Alert.AlertType.ERROR, "Expiração é inválida").show();
+        return false;
+      }
+
+      if (cvv.get().equals("") || cvv.get().equals(null) || cvv.get().length() > 4 || cvv.get().length() < 3) {
+        new Alert(Alert.AlertType.ERROR, "CVV é obrigatório").show();
+        return false;
+      }
+
+      return true;
+    } catch (Exception e) {
+      e.printStackTrace();
+      new Alert(Alert.AlertType.ERROR, "Campos inválidos").show();
+      return false;
+    }
   }
 
 }

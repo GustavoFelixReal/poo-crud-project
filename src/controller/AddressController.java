@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -108,17 +109,21 @@ public class AddressController implements IController<Address> {
 
   @Override
   public void add() {
-    int number = Integer.parseInt(this.number.get());
+    if (this.validate()) {
+      int number = Integer.parseInt(this.number.get());
 
-    Address customer = AddressBuilder.builder()
-        .addAddress(street.get(), number, cityArea.get(), city.get(), state.get(), country.get(), zipCode.get())
-        .addLine2(line2.get())
-        .addOwner(owner.get())
-        .get();
+      Address address = AddressBuilder.builder()
+          .addAddress(street.get(), number, cityArea.get(), city.get(), state.get(), country.get(), zipCode.get())
+          .addLine2(line2.get())
+          .addOwner(owner.get())
+          .get();
 
-    addresses.add(customer);
-
-    dao.create(customer);
+      if (dao.create(address)) {
+        addresses.add(address);
+      } else {
+        new Alert(Alert.AlertType.ERROR, "Erro ao inserir no banco de dados").show();
+      }
+    }
   }
 
   @Override
@@ -138,4 +143,54 @@ public class AddressController implements IController<Address> {
     return customers;
   }
 
+  @Override
+  public boolean validate() {
+    try {
+      if (owner.get() == null) {
+        new Alert(Alert.AlertType.ERROR, "Cliente é obrigatório").show();
+        return false;
+      }
+
+      if (street.get().equals("") || street.get().equals(null)) {
+        new Alert(Alert.AlertType.ERROR, "Logradouro é obrigatório").show();
+        return false;
+      }
+
+      if (number.get().equals("") || number.get().equals(null) || Integer.parseInt(number.get()) <= 0) {
+        new Alert(Alert.AlertType.ERROR, "Número inválido").show();
+        return false;
+      }
+
+      if (cityArea.get().equals("") || cityArea.get().equals(null)) {
+        new Alert(Alert.AlertType.ERROR, "Bairro é obrigatório").show();
+        return false;
+      }
+
+      if (city.get().equals("") || city.get().equals(null)) {
+        new Alert(Alert.AlertType.ERROR, "Cidade é obrigatório").show();
+        return false;
+      }
+
+      if (state.get().equals("") || state.get().equals(null)) {
+        new Alert(Alert.AlertType.ERROR, "Estado é obrigatório").show();
+        return false;
+      }
+
+      if (country.get().equals("") || country.get().equals(null)) {
+        new Alert(Alert.AlertType.ERROR, "País é obrigatório").show();
+        return false;
+      }
+
+      if (zipCode.get().equals("") || zipCode.get().equals(null) || zipCode.get().length() > 9
+          || zipCode.get().length() < 9) {
+        new Alert(Alert.AlertType.ERROR, "CEP é inválido").show();
+        return false;
+      }
+
+      return true;
+    } catch (Exception e) {
+      new Alert(Alert.AlertType.ERROR, "Campos inválidos").show();
+      return false;
+    }
+  }
 }

@@ -104,7 +104,7 @@ public class AddressDao implements Idao<Address> {
   }
 
   @Override
-  public void create(Address address) {
+  public boolean create(Address address) {
     String query = "INSERT INTO addresses (address_owner, address_street, address_number, address_line_2, address_city_area, address_city, address_state, address_country, address_zip_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     try {
@@ -125,7 +125,10 @@ public class AddressDao implements Idao<Address> {
       stmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
+      return false;
     }
+
+    return true;
   }
 
   @Override

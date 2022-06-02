@@ -16,7 +16,7 @@ public class AddressScene implements IBoundary {
 
   private Insets layoutSpacing = new Insets(10, 20, 10, 20);
   private Insets buttonGroupSpacing = new Insets(10, 0, 10, 0);
-  private Insets tableBoxSpacing = new Insets(0, 10, 0, 10);
+  private Insets tableBoxSpacing = new Insets(0, 0, 0, 10);
 
   private TextField txtStreet = new TextField();
   private TextField txtNumber = new TextField();
@@ -53,19 +53,19 @@ public class AddressScene implements IBoundary {
     tableBox.setPadding(tableBoxSpacing);
 
     // Cliente
-    grid.add(new Label("Cliente"), 0, 0);
+    grid.add(new Label("* Cliente"), 0, 0);
     grid.add(cbOwner, 0, 1);
     cbOwner.setPrefSize(300, 30);
     cbOwner.setStyle(textFieldStyle);
 
     // Logradouro
-    grid.add(new Label("Logradouro"), 0, 2);
+    grid.add(new Label("* Logradouro"), 0, 2);
     grid.add(txtStreet, 0, 3);
     txtStreet.setPrefSize(300, 30);
     txtStreet.setStyle(textFieldStyle);
 
     // Número
-    grid.add(new Label("Número"), 0, 4);
+    grid.add(new Label("* Número"), 0, 4);
     grid.add(txtNumber, 0, 5);
     txtNumber.setPrefSize(300, 30);
     txtNumber.setStyle(textFieldStyle);
@@ -77,31 +77,31 @@ public class AddressScene implements IBoundary {
     txtLine2.setStyle(textFieldStyle);
 
     // Bairro
-    grid.add(new Label("Bairro"), 0, 8);
+    grid.add(new Label("* Bairro"), 0, 8);
     grid.add(txtCityArea, 0, 9);
     txtCityArea.setPrefSize(300, 30);
     txtCityArea.setStyle(textFieldStyle);
 
     // Cidade
-    grid.add(new Label("Cidade"), 0, 10);
+    grid.add(new Label("* Cidade"), 0, 10);
     grid.add(txtCity, 0, 11);
     txtCity.setPrefSize(300, 30);
     txtCity.setStyle(textFieldStyle);
 
     // Estado
-    grid.add(new Label("Estado"), 0, 12);
+    grid.add(new Label("* Estado"), 0, 12);
     grid.add(txtState, 0, 13);
     txtState.setPrefSize(300, 30);
     txtState.setStyle(textFieldStyle);
 
     // País
-    grid.add(new Label("País"), 0, 14);
+    grid.add(new Label("* País"), 0, 14);
     grid.add(txtCountry, 0, 15);
     txtCountry.setPrefSize(300, 30);
     txtCountry.setStyle(textFieldStyle);
 
     // CEP
-    grid.add(new Label("CEP"), 0, 16);
+    grid.add(new Label("* CEP (00000-000)"), 0, 16);
     grid.add(txtZipCode, 0, 17);
     txtZipCode.setPrefSize(300, 30);
     txtZipCode.setStyle(textFieldStyle);

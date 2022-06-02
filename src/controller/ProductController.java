@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -73,17 +74,21 @@ public class ProductController implements IController<Product> {
 
   @Override
   public void add() {
-    Product product = ProductBuilder.builder()
-        .addName(name.get())
-        .addPrice(Double.parseDouble(price.get()))
-        .addManufacturer(manufacturer.get())
-        .addDescription(description.get())
-        .addKeyFeatures(keyFeatures.get())
-        .get();
+    if (this.validate()) {
+      Product product = ProductBuilder.builder()
+          .addName(name.get())
+          .addPrice(Double.parseDouble(price.get()))
+          .addManufacturer(manufacturer.get())
+          .addDescription(description.get())
+          .addKeyFeatures(keyFeatures.get())
+          .get();
 
-    products.add(product);
-
-    dao.create(product);
+      if (dao.create(product)) {
+        products.add(product);
+      } else {
+        new Alert(Alert.AlertType.ERROR, "Erro ao inserir no banco de dados").show();
+      }
+    }
   }
 
   @Override
@@ -95,5 +100,35 @@ public class ProductController implements IController<Product> {
 
   public TableView<Product> getTable() {
     return table;
+  }
+
+  @Override
+  public boolean validate() {
+    try {
+      if (name.get().equals("") || name.get().equals(null)) {
+        new Alert(Alert.AlertType.ERROR, "Nome é obrigatório").show();
+        return false;
+      }
+
+      if (Double.parseDouble(price.get()) <= 0) {
+        new Alert(Alert.AlertType.ERROR, "Preço é inválido").show();
+        return false;
+      }
+
+      if (manufacturer.get().equals("") || name.get().equals(null)) {
+        new Alert(Alert.AlertType.ERROR, "Fabricante é obrigatório").show();
+        return false;
+      }
+
+      if (description.get().equals("") || description.get().equals(null)) {
+        new Alert(Alert.AlertType.ERROR, "Descrição é obrigatório").show();
+        return false;
+      }
+
+      return true;
+    } catch (Exception e) {
+      new Alert(Alert.AlertType.ERROR, "Campos inválidos").show();
+      return false;
+    }
   }
 }

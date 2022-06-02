@@ -9,6 +9,7 @@ public class CreditCardBootstrap extends Application {
   public void start(Stage stage) throws Exception {
     stage.setScene(new CreditCardScene().get());
     stage.setTitle("Cartões de Crédito");
+    stage.setResizable(false);
     stage.show();
   }
 

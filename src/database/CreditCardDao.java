@@ -9,6 +9,7 @@ import java.util.List;
 
 import model.CreditCard;
 import model.CreditCardBuilder;
+import util.DateConverter;
 
 public class CreditCardDao implements Idao<CreditCard> {
   private Connection con;
@@ -100,7 +101,7 @@ public class CreditCardDao implements Idao<CreditCard> {
   }
 
   @Override
-  public void create(CreditCard card) {
+  public boolean create(CreditCard card) {
     String query = "INSERT INTO credit_cards VALUES (null, ?, ?, ?, ?, ?, ?)";
 
     try {
@@ -113,13 +114,16 @@ public class CreditCardDao implements Idao<CreditCard> {
       stmt.setString(2, name);
       stmt.setString(3, card.getNumber());
       stmt.setString(4, card.getCountry());
-      stmt.setDate(5, java.sql.Date.valueOf(card.getExpiry()));
+      stmt.setDate(5, DateConverter.localDateToDate(card.getExpiry()));
       stmt.setString(6, card.getCvv());
 
       stmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
+      return false;
     }
+
+    return true;
   }
 
   @Override

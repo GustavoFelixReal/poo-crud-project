@@ -1,7 +1,5 @@
 package scenes;
 
-import java.time.format.DateTimeFormatter;
-
 import controller.CreditCardController;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
@@ -12,14 +10,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.util.converter.LocalDateStringConverter;
+import util.DateConverter;
 
 public class CreditCardScene implements IBoundary {
   private CreditCardController controller = new CreditCardController();
 
   private Insets layoutSpacing = new Insets(10, 20, 10, 20);
   private Insets buttonGroupSpacing = new Insets(10, 0, 10, 0);
-  private Insets tableBoxSpacing = new Insets(0, 10, 0, 10);
+  private Insets tableBoxSpacing = new Insets(0, 0, 0, 10);
 
   private TextField txtName = new TextField();
   private TextField txtNumber = new TextField();
@@ -52,40 +50,46 @@ public class CreditCardScene implements IBoundary {
     container.add(tableBox, 1, 0);
     tableBox.setPadding(tableBoxSpacing);
 
-    // Titular
-    grid.add(new Label("Titular"), 0, 0);
+    // Cliente
+    grid.add(new Label("* Cliente"), 0, 0);
     grid.add(cbOwner, 0, 1);
     cbOwner.setPrefSize(300, 30);
     cbOwner.setStyle(textFieldStyle);
 
+    // Titular
+    grid.add(new Label("* Titular"), 0, 2);
+    grid.add(txtName, 0, 3);
+    txtName.setPrefSize(300, 30);
+    txtName.setStyle(textFieldStyle);
+
     // Número
-    grid.add(new Label("Número"), 0, 2);
-    grid.add(txtNumber, 0, 3);
+    grid.add(new Label("* Número (16 dígitos)"), 0, 4);
+    grid.add(txtNumber, 0, 5);
     txtNumber.setPrefSize(300, 30);
     txtNumber.setStyle(textFieldStyle);
 
     // País
-    grid.add(new Label("País"), 0, 4);
-    grid.add(txtCountry, 0, 5);
+    grid.add(new Label("* País"), 0, 6);
+    grid.add(txtCountry, 0, 7);
     txtCountry.setPrefSize(300, 30);
     txtCountry.setStyle(textFieldStyle);
 
     // Expiração
-    grid.add(new Label("Expiração"), 0, 6);
-    grid.add(txtExpiry, 0, 7);
+    grid.add(new Label("* Expiração (dd/MM/yyyy)"), 0, 8);
+    grid.add(txtExpiry, 0, 9);
     txtExpiry.setPrefSize(300, 30);
     txtExpiry.setStyle(textFieldStyle);
 
     // CVV
-    grid.add(new Label("CVV"), 0, 8);
-    grid.add(txtCvv, 0, 9);
+    grid.add(new Label("CVV (min. 3/max. 4)"), 0, 10);
+    grid.add(txtCvv, 0, 11);
     txtCvv.setPrefSize(300, 30);
     txtCvv.setStyle(textFieldStyle);
 
     // Button Group
     GridPane buttonGroup = new GridPane();
     GridPane.setMargin(buttonGroup, buttonGroupSpacing);
-    grid.add(buttonGroup, 0, 10);
+    grid.add(buttonGroup, 0, 12);
 
     buttonGroup.add(btnAdd, 0, 0);
     btnAdd.setStyle(buttonStyles);
@@ -97,19 +101,17 @@ public class CreditCardScene implements IBoundary {
     btnAdd.setOnAction((e) -> controller.add());
     btnSearch.setOnAction((e) -> controller.search());
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    LocalDateStringConverter ldc = new LocalDateStringConverter(formatter, null);
-
     // Listeners de Valores
     Bindings.bindBidirectional(controller.ownerProperty(), cbOwner.valueProperty());
     Bindings.bindBidirectional(controller.nameProperty(), txtName.textProperty());
     Bindings.bindBidirectional(controller.numberProperty(), txtNumber.textProperty());
     Bindings.bindBidirectional(controller.countryProperty(), txtCountry.textProperty());
-    Bindings.bindBidirectional(txtExpiry.textProperty(), controller.expiryProperty(), ldc);
+    Bindings.bindBidirectional(txtExpiry.textProperty(), controller.expiryProperty(),
+        DateConverter.localDateConverter());
     Bindings.bindBidirectional(controller.cvvProperty(), txtCvv.textProperty());
 
     // Criação da Scene
-    Scene scene = new Scene(main, 1000, 500);
+    Scene scene = new Scene(main, 600, 400);
 
     return scene;
   }

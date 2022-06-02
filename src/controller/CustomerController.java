@@ -12,11 +12,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Customer;
 import model.CustomerBuilder;
+import util.DateConverter;
 
 public class CustomerController implements IController<Customer> {
   private CustomerDao dao = new CustomerDao(con);
@@ -98,19 +100,23 @@ public class CustomerController implements IController<Customer> {
 
   @Override
   public void add() {
-    Customer customer = CustomerBuilder.builder()
-        .addName(name.get())
-        .addEmail(email.get())
-        .addCpf(cpf.get())
-        .addRg(rg.get())
-        .addGender(gender.get())
-        .addBirth(birth.get())
-        .addCellPhone(cellPhone.get())
-        .get();
+    if (this.validate()) {
+      Customer customer = CustomerBuilder.builder()
+          .addName(name.get())
+          .addEmail(email.get())
+          .addCpf(cpf.get())
+          .addRg(rg.get())
+          .addGender(gender.get())
+          .addBirth(birth.get())
+          .addCellPhone(cellPhone.get())
+          .get();
 
-    customers.add(customer);
-
-    dao.create(customer);
+      if (dao.create(customer)) {
+        customers.add(customer);
+      } else {
+        new Alert(Alert.AlertType.ERROR, "Erro ao inserir no banco de dados").show();
+      }
+    }
   }
 
   @Override
@@ -124,4 +130,50 @@ public class CustomerController implements IController<Customer> {
     return table;
   }
 
+  @Override
+  public boolean validate() {
+    try {
+      if (name.get().equals("") || name.get().equals(null)) {
+        new Alert(Alert.AlertType.ERROR, "Nome é obrigatório").show();
+        return false;
+      }
+
+      if (email.get().equals("") || email.get().equals(null) || !email.get().contains("@")
+          || !email.get().contains(".")) {
+        new Alert(Alert.AlertType.ERROR, "Email é inválido").show();
+        return false;
+      }
+
+      if (cpf.get().equals("") || cpf.get().equals(null) || cpf.get().length() > 11 || cpf.get().length() < 11) {
+        new Alert(Alert.AlertType.ERROR, "CPF é inválido").show();
+        return false;
+      }
+
+      if (rg.get().equals("") || rg.get().equals(null) || rg.get().length() > 9 || rg.get().length() < 9) {
+        new Alert(Alert.AlertType.ERROR, "RG é inválido").show();
+        return false;
+      }
+
+      if (gender.get().equals("") || gender.get().equals(null)) {
+        new Alert(Alert.AlertType.ERROR, "Gênero é obrigatório").show();
+        return false;
+      }
+
+      if (DateConverter.isValid(birth.get().toString()) || birth.get().equals(null)) {
+        new Alert(Alert.AlertType.ERROR, "Data de nascimento é obrigatório").show();
+        return false;
+      }
+
+      if (cellPhone.get().equals("") || cellPhone.get().equals(null) || cellPhone.get().length() > 15
+          || cellPhone.get().length() < 10) {
+        new Alert(Alert.AlertType.ERROR, "Celular é inválido").show();
+        return false;
+      }
+
+      return true;
+    } catch (Exception e) {
+      new Alert(Alert.AlertType.ERROR, "Campos inválidos").show();
+      return false;
+    }
+  }
 }

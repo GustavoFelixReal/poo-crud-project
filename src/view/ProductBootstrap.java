@@ -9,6 +9,7 @@ public class ProductBootstrap extends Application {
   public void start(Stage stage) throws Exception {
     stage.setScene(new ProductScene().get());
     stage.setTitle("Produtos");
+    stage.setResizable(false);
     stage.show();
   }
 
