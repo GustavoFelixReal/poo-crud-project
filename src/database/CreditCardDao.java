@@ -101,15 +101,16 @@ public class CreditCardDao implements Idao<CreditCard> {
 
   @Override
   public void create(CreditCard card) {
-    String query = "INSERT INTO credit_cards VALUES (null, ?, ?, ?, ?, ?, ?),";
+    String query = "INSERT INTO credit_cards VALUES (null, ?, ?, ?, ?, ?, ?)";
 
     try {
       String[] mergedOwner = card.getOwner().split(":");
       int owner = Integer.parseInt(mergedOwner[0]);
+      String name = mergedOwner[1];
 
       PreparedStatement stmt = con.prepareStatement(query);
       stmt.setInt(1, owner);
-      stmt.setString(2, card.getName());
+      stmt.setString(2, name);
       stmt.setString(3, card.getNumber());
       stmt.setString(4, card.getCountry());
       stmt.setDate(5, java.sql.Date.valueOf(card.getExpiry()));
