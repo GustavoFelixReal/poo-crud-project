@@ -12,4 +12,6 @@ public interface IController<T> {
   public void search();
 
   public boolean validate();
+
+  public void clear();
 }

@@ -113,6 +113,7 @@ public class CustomerController implements IController<Customer> {
 
       if (dao.create(customer)) {
         customers.add(customer);
+        this.clear();
       } else {
         new Alert(Alert.AlertType.ERROR, "Erro ao inserir no banco de dados").show();
       }
@@ -175,5 +176,16 @@ public class CustomerController implements IController<Customer> {
       new Alert(Alert.AlertType.ERROR, "Campos inválidos").show();
       return false;
     }
+  }
+
+  @Override
+  public void clear() {
+    name.set("");
+    email.set("");
+    cpf.set("");
+    rg.set("");
+    gender.set(null);
+    birth.set(null);
+    cellPhone.set("");
   }
 }

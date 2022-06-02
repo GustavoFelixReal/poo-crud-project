@@ -103,6 +103,7 @@ public class CreditCardController implements IController<CreditCard> {
 
       if (dao.create(creditCard)) {
         creditCards.add(creditCard);
+        this.clear();
       } else {
         new Alert(Alert.AlertType.ERROR, "Erro ao inserir no banco de dados").show();
       }
@@ -166,6 +167,16 @@ public class CreditCardController implements IController<CreditCard> {
       new Alert(Alert.AlertType.ERROR, "Campos inválidos").show();
       return false;
     }
+  }
+
+  @Override
+  public void clear() {
+    owner.set(null);
+    name.set("");
+    number.set("");
+    country.set("");
+    expiry.set(null);
+    cvv.set("");
   }
 
 }

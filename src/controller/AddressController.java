@@ -120,6 +120,7 @@ public class AddressController implements IController<Address> {
 
       if (dao.create(address)) {
         addresses.add(address);
+        this.clear();
       } else {
         new Alert(Alert.AlertType.ERROR, "Erro ao inserir no banco de dados").show();
       }
@@ -192,5 +193,18 @@ public class AddressController implements IController<Address> {
       new Alert(Alert.AlertType.ERROR, "Campos inválidos").show();
       return false;
     }
+  }
+
+  @Override
+  public void clear() {
+    street.set("");
+    number.set("");
+    line2.set("");
+    cityArea.set("");
+    city.set("");
+    state.set("");
+    country.set("");
+    zipCode.set("");
+    owner.set(null);
   }
 }

@@ -85,6 +85,7 @@ public class ProductController implements IController<Product> {
 
       if (dao.create(product)) {
         products.add(product);
+        this.clear();
       } else {
         new Alert(Alert.AlertType.ERROR, "Erro ao inserir no banco de dados").show();
       }
@@ -130,5 +131,14 @@ public class ProductController implements IController<Product> {
       new Alert(Alert.AlertType.ERROR, "Campos inválidos").show();
       return false;
     }
+  }
+
+  @Override
+  public void clear() {
+    name.set("");
+    price.set("");
+    manufacturer.set("");
+    description.set("");
+    keyFeatures.set("");
   }
 }
