@@ -7,7 +7,7 @@ public class ConnectionFactory {
   private final static String JDBC_CLASS = "org.mariadb.jdbc.Driver";
   private static final String JDBC_URL = "jdbc:mariadb://localhost:3306/ecomm_katchau?allowMultiQueries=false";
   private static final String JDBC_USER = "root";
-  private static final String JDBC_PASS = "";
+  private static final String JDBC_PASS = "root";
   private Connection con;
 
   public ConnectionFactory() {

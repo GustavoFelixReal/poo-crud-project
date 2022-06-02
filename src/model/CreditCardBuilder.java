@@ -13,6 +13,11 @@ public class CreditCardBuilder {
     return new CreditCardBuilder();
   }
 
+  public CreditCardBuilder addId(int id) {
+    this.creditCard.setId(id);
+    return this;
+  }
+
   public CreditCardBuilder addCreditCard(String name, String number, String country, LocalDate expiry, String cvv) {
     this.creditCard.setName(name);
     this.creditCard.setNumber(number);

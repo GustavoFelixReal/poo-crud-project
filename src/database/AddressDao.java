@@ -50,8 +50,7 @@ public class AddressDao implements Idao<Address> {
   public List<String> allCustomers() {
     List<String> customers = new ArrayList<>();
 
-    String query = "SELECT CONCAT(a.address_owner, ':', c.customer_full_name) as address_owner_concat FROM addresses a ";
-    query += "LEFT JOIN customers c ON c.customer_id = a.address_owner";
+    String query = "SELECT CONCAT(c.customer_id, ':', c.customer_full_name) as address_owner_concat FROM customers c";
 
     try {
       PreparedStatement stmt = con.prepareStatement(query);
