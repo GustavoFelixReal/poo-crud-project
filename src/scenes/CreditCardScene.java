@@ -74,7 +74,7 @@ public class CreditCardScene implements IBoundary {
     txtExpiry.setStyle(LayoutStyle.textFieldStyle);
 
     // CVV
-    grid.add(new Label("CVV (min. 3/max. 4)"), 0, 10);
+    grid.add(new Label("* CVV (min. 3/max. 4)"), 0, 10);
     grid.add(txtCvv, 0, 11);
     txtCvv.setPrefSize(300, 30);
     txtCvv.setStyle(LayoutStyle.textFieldStyle);
