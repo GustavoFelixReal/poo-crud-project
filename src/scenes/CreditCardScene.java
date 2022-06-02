@@ -97,7 +97,6 @@ public class CreditCardScene implements IBoundary {
     btnAdd.setOnAction((e) -> controller.add());
     btnSearch.setOnAction((e) -> controller.search());
 
-    // Data Formatters
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     LocalDateStringConverter ldc = new LocalDateStringConverter(formatter, null);
 
