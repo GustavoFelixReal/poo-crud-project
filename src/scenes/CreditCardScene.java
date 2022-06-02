@@ -106,7 +106,7 @@ public class CreditCardScene implements IBoundary {
     Bindings.bindBidirectional(controller.cvvProperty(), txtCvv.textProperty());
 
     // Criação da Scene
-    Scene scene = new Scene(main, 600, 400);
+    Scene scene = new Scene(main, 700, 400);
 
     return scene;
   }
