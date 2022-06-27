@@ -237,7 +237,7 @@ public class CustomerController implements IController<Customer> {
       return false;
     }
 
-    if (this.validate()) {
+
       Customer customer = CustomerBuilder.builder()
               .addId(Integer.parseInt(id.get()))
               .addName(name.get())
@@ -258,9 +258,7 @@ public class CustomerController implements IController<Customer> {
       new Alert(Alert.AlertType.INFORMATION, "Cliente deletado com sucesso").show();
 
       return true;
-    }
 
-    return false;
   }
 
   @Override

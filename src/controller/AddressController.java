@@ -270,7 +270,7 @@ public class AddressController implements IController<Address> {
       return false;
     }
 
-    if (this.validate()) {
+
       int number = Integer.parseInt(this.number.get());
 
       String[] mergedOwner = owner.get().split(":");
@@ -295,9 +295,8 @@ public class AddressController implements IController<Address> {
       new Alert(Alert.AlertType.INFORMATION, "Endereço deletado com sucesso").show();
 
       return true;
-    }
 
-    return false;
+
   }
 
   @Override

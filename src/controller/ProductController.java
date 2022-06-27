@@ -193,7 +193,7 @@ public class ProductController implements IController<Product> {
       return false;
     }
 
-    if (this.validate()) {
+
       Product product = ProductBuilder.builder()
               .addId(Integer.parseInt(id.get()))
               .addName(name.get())
@@ -212,9 +212,6 @@ public class ProductController implements IController<Product> {
       new Alert(Alert.AlertType.INFORMATION, "Produto deletado com sucesso").show();
 
       return true;
-    }
-
-    return false;
   }
 
   @Override

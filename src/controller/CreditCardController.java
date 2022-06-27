@@ -239,7 +239,7 @@ public class CreditCardController implements IController<CreditCard> {
       return false;
     }
 
-    if (this.validate()) {
+
       String[] mergedOwner = owner.get().split(":");
       int owner = Integer.parseInt(mergedOwner[0]);
 
@@ -261,9 +261,6 @@ public class CreditCardController implements IController<CreditCard> {
       new Alert(Alert.AlertType.INFORMATION, "Cartão de crédito deletado com sucesso").show();
 
       return true;
-    }
-
-    return false;
   }
 
   @Override
